@@ -13,10 +13,20 @@ Hello {{user}} <br>
     Navi    Category   Product  app nin altındalar ama navi,category ve produt aynı hiyerarşiye sahip-->
 
 
+    <!-- bunu yapmamızın sebebi ortalaması için -->
+<div class="container">
+  <app-navi></app-navi>
+  <!-- Bootstrap da bir satırı 12 eş parçaya böldüğünü sanar row da -->
+  <div class="row">
+    <div class="col-md-3">
+      <app-category></app-category>
+    </div>
+    <div class="col-md-9">
+      <app-product></app-product>
+    </div>
+  </div>
+  <router-outlet></router-outlet>
+</div>
 
-<app-navi></app-navi>
-<app-category></app-category>
-<app-product></app-product>
 
-<router-outlet></router-outlet>
 

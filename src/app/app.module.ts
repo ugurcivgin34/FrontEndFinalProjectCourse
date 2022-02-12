@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http'; //bir apiye istekde bulunmak için app modulunde
+//bunun olması gerekiyor.Enjekslyinların insteasının karşılığını bulamadı.Backendeki ile.Bu yüzden bu modülü ekledik.
+//injection u yapan bu
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,7 +21,8 @@ import { NaviComponent } from './conponents/navi/navi.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
