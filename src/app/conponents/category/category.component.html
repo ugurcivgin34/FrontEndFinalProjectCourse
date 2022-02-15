@@ -1,7 +1,14 @@
 <ul class="list-group">
-  <li class="list-group-item">An item</li>
-  <li class="list-group-item">A second item</li>
-  <li class="list-group-item">A third item</li>
-  <li class="list-group-item">A fourth item</li>
-  <li class="list-group-item">And a fifth one</li>
+  <!-- Tekrarlanan li o yüzden ngFor u burda kullanmamız gerekiyor.Ul onun classı sadece -->
+  <!-- önce ngFor çalışır -->
+        <li  [class]="getAllCategoryClass()" routerLink="/products">Tüm Ürünler</li>
+        <li (click)="setCurrentCategory(category)"
+        routerLink="/products/category/{{category.categoryId}}"
+        *ngFor="let category of categories"
+        [class]="getCurrentCategoryClass(category)">
+        {{category.categoryName}}</li>
+
 </ul>
+
+<!-- //currentCategory defened ise var ise anlamı katıyor .Tanımlı değlse.-->
+<h5 *ngIf="currentCategory">{{currentCategory.categoryName}} seçtiniz</h5>
