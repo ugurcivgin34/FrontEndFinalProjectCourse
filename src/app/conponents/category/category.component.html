@@ -1,14 +1,19 @@
 <ul class="list-group">
   <!-- Tekrarlanan li o yüzden ngFor u burda kullanmamız gerekiyor.Ul onun classı sadece -->
-  <!-- önce ngFor çalışır -->
-        <li  [class]="getAllCategoryClass()" routerLink="/products">Tüm Ürünler</li>
+  <!-- önce ngFor çalışır.O yüzden category parametresi ngFor daki category den gelir -->
+        <li (click)="setCurrentCategoryEmpty()"
+        [class]="getAllCategoryClass()"
+        routerLink="/products">Tüm Ürünler</li>
+
         <li (click)="setCurrentCategory(category)"
         routerLink="/products/category/{{category.categoryId}}"
         *ngFor="let category of categories"
         [class]="getCurrentCategoryClass(category)">
         {{category.categoryName}}</li>
 
+        <!-- ngFor dan tek tek gelen category eğer tıklanan category e eşitse mavi yap  -->
+
 </ul>
 
-<!-- //currentCategory defened ise var ise anlamı katıyor .Tanımlı değlse.-->
+<!-- //currentCategory defened ise var ise anlamı katıyor .Varsa,içi dolu ise değer varsa-->
 <h5 *ngIf="currentCategory">{{currentCategory.categoryName}} seçtiniz</h5>
