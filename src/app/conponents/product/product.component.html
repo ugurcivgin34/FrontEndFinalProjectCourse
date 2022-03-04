@@ -1,6 +1,18 @@
 <div *ngIf="dataLoaded==false" class="spinner-border text-primary" role="status">
   <span class="visually-hidden">Loading...</span>
 </div>
+
+<!-- ngModel 2 yönlü binding demek .yani butona basınca ts kısmındaki değişekecek,ts kısmındaki değişirse burası değişecek.Buton ile bağlamış olduk
+bunun içinde app.module kısmında formmodule modülünü ekledik-->
+<div class="mb-3">
+  <label for="filterText" class="form-label">Ürün Ara</label>
+  <input type="text" [(ngModel)]="filterText" class="form-control" id="filterText" placeholder="Arama İfadesi Giriniz">
+</div>
+
+<div *ngIf="filterText.length>2" class="alert alert-success">
+  {{filterText}} aradınız
+</div>
+
 <table *ngIf="dataLoaded==true" class="table table-striped table-hover">
   <!-- başlık için -->
   <thead>
@@ -9,16 +21,20 @@
       <th>Ürün Adı</th>
       <th>Kategori</th>
       <th>Fiyat</th>
+      <th>Kdv'li Fiyat</th>
       <th>Stok Adedi</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let product of products">
+    <tr *ngFor="let product of products | filterPipe:filterText">
       <td>{{product.productId}}</td>
-      <td>{{product.productName}}</td>
+      <td>{{product.productName  }}</td>
       <td>{{product.categoryId}}</td>
-      <td>{{product.unitPrice}}</td>
+      <td>{{product.unitPrice | currency}}</td>
+      <td>{{product.unitPrice | varAdded:20 | currency }}</td>
       <td>{{product.unitsInStock}}</td>
+      <td><button (click)="addToCart(product)" class="btn btn-success">Sepete Ekle</button></td>
     </tr>
   </tbody>
 </table>

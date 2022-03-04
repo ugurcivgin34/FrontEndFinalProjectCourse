@@ -1,8 +1,10 @@
+import { CartService } from './../../services/cart.service';
 import { ProductService } from './../../services/product.service';
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/product';
 import { HttpClient } from '@angular/common/http'; //backend de istek bulunabiliyoruz artık.Http clieant ile backend e istek de bulunabiliyoruz
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 //axios,fetch react ile yapılabiliyor
 
@@ -21,6 +23,7 @@ export class ProductComponent implements OnInit {
 
   products: Product[] = [];
   dataLoaded = false;
+  filterText="";
 
   // productResponseModel:ProductResponseModel={
   //   data:this.products,
@@ -34,7 +37,10 @@ export class ProductComponent implements OnInit {
   //Pricate olarak yapmamızın sebebi normalde c# da this. şekilde http clieant a erişemyiz.Burda this. şeklinde erişebiliriz
   //private yazmamızın sebebi ise private olmasaydı başka class da ProductComponent. dediğimizde httpCliant gözükürdü
   //constructor(private httpClient: HttpClient) { } bir component httpClient kullanmaz.Onu productservice de tanımladık
-  constructor(private productService: ProductService, private activatedRoute: ActivatedRoute) { } //Angular bizim yerimize enjekte ediyor
+  constructor(private productService: ProductService,
+     private activatedRoute: ActivatedRoute,
+     private toastrService:ToastrService,
+     private cartService:CartService) { } //Angular bizim yerimize enjekte ediyor
   //
 
   //ProductComponent DOM a yerleştiğinde yani açlıldığında  çalışan metod OnInıt tir.
@@ -72,6 +78,11 @@ export class ProductComponent implements OnInit {
       this.products = response.data;
       this.dataLoaded = true;
     });
+  }
+
+  addToCart(product:Product){
+    this.toastrService.success("Sepete Eklendi",product.productName)
+    this.cartService.addToCart(product);
   }
 
 }
